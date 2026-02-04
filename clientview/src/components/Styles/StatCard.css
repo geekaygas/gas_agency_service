@@ -1,0 +1,100 @@
+.stat-card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  padding: 1.5rem;
+}
+
+.stat-card-header {
+  display: flex;
+  align-items:self-start;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.stat-icon-wrapper {
+  padding: 0.5rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.stat-icon-blue {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #2563eb;
+}
+
+.stat-icon-purple {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #7c3aed;
+}
+
+.stat-icon-orange {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #ea580c;
+}
+
+.stat-icon-green {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #34cb0e;
+}
+.stat-icon-red {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: #f80303;
+}
+
+.stat-change {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.change-positive {
+  color: #16a34a;
+}
+
+.change-negative {
+  color: #dc2626;
+}
+
+.stat-badge {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.badge-orange {
+  background-color: #fed7aa;
+  color: #9a3412;
+}
+.badge-red {
+  color: #870705;
+  background-color: #e82d2d;
+}
+
+.badge-gray {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+.badge-green {
+  background-color: #09d221;
+  color: #006428;
+}
+
+.stat-label {
+  font-size: 2rem;
+  color: #6b7280;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  font-size: 3rem;
+  font-weight: 700;
+  justify-content: center;
+  color: #111827;
+}

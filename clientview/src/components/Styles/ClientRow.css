@@ -1,0 +1,189 @@
+.client-row {
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s;
+}
+
+.client-row:hover {
+  background-color: #f9fafb;
+}
+
+.client-row td {
+  padding: 1rem 1.5rem;
+}
+
+.client-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.client-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.avatar-blue {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.avatar-orange {
+  background-color: #fed7aa;
+  color: #9a3412;
+}
+
+.avatar-purple {
+  background-color: #e9d5ff;
+  color: #6b21a8;
+}
+
+.avatar-green {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.client-name {
+  font-weight: 500;
+  color: #111827;
+}
+
+.client-id {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.contact-avatar {
+  width: 2rem;
+  height: 2rem;
+  background-color: #f3f4f6;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+}
+
+.contact-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.contact-email {
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.domain-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.domain-badge {
+  padding: 0.25rem 0.5rem;
+  background-color: #f3f4f6;
+  color: #374151;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+}
+
+.domain-more {
+  padding: 0.25rem 0.5rem;
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.email-usage {
+  min-width: 120px;
+}
+
+.usage-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.usage-bar {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+  height: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.usage-progress {
+  background-color: #2563eb;
+  height: 0.5rem;
+  border-radius: 9999px;
+  transition: width 0.3s;
+}
+
+.usage-percent {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: currentColor;
+}
+
+.status-active {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-payment-due {
+  background-color: #fed7aa;
+  color: #9a3412;
+}
+
+.status-suspended {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.status-default {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.btn-view {
+  color: #2563eb;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.btn-view:hover {
+  color: #1d4ed8;
+}
+
