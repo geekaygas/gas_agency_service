@@ -38,7 +38,7 @@ useEffect(() => {
 
 const logout = async () => {
     try {
-      await fetch("http://localhost:4000/api/auth/logout", {
+      await fetch("https://gas-agency-service.onrender.com/api/auth/logout", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,

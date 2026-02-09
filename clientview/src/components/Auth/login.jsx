@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Login.css";
-const API = "http://localhost:4000/api/auth";
+const API = "https://gas-agency-service.onrender.com/api/auth";
 
 const Login = (onLoginSuccess) => {
   const [isSignup, setIsSignup] = useState(false);

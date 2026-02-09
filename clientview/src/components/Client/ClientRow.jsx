@@ -3,7 +3,7 @@ import { Trash2, Edit } from "lucide-react";
 import ClientDetailsModal from "./ConsumerDetailsModal";
 import "../styles/ClientRow.css";
 
-const API_URL = "http://localhost:4000/api/clients";
+const API_URL = "https://gas-agency-service.onrender.com/api/clients";
 
 const ClientRow = ({ client, onDelete, onUpdate }) => {
   const [showDetailsModal, setShowDetailsModal] = useState(false);

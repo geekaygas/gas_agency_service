@@ -9,7 +9,7 @@ const ClientTable = () => {
 
   const fetchBookings = async () => {
     const res = await fetch(
-      `http://localhost:4000/api/bookings?page=${page}&limit=${limit}`
+      `https://gas-agency-service.onrender.com/api/bookings?page=${page}&limit=${limit}`
     );
     const result = await res.json();
     setBookings(result.data || []);

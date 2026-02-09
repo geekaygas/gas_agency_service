@@ -62,7 +62,7 @@ const EditConsumerModal = ({ consumer, onClose, onUpdated }) => {
       }
 
       await fetch(
-        `http://localhost:4000/api/consumers/${consumer._id}`,
+        `https://gas-agency-service.onrender.com/api/consumers/${consumer._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

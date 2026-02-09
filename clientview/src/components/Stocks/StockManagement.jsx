@@ -15,7 +15,7 @@ const StockManagement = () => {
 
   const fetchStocks = async () => {
     const res = await fetch(
-      `http://localhost:4000/api/stocks?page=${page}&limit=${limit}&search=${search}&filter=${filterType}`
+      `https://gas-agency-service.onrender.com/api/stocks?page=${page}&limit=${limit}&search=${search}&filter=${filterType}`
     );
     const data = await res.json();
     setStocks(data.data);
@@ -28,7 +28,7 @@ const StockManagement = () => {
 
   const deleteStock = async (id) => {
     if (!window.confirm("Delete this stock?")) return;
-    await fetch(`http://localhost:4000/api/stocks/${id}`, {
+    await fetch(`https://gas-agency-service.onrender.com/api/stocks/${id}`, {
       method: "DELETE",
     });
     fetchStocks();

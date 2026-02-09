@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const API = "http://localhost:4000/api/auth";
+const API = "https://gas-agency-service.onrender.com/api/auth";
 
 const SignupForm = () => {
   const [signupStep, setSignupStep] = useState(1);

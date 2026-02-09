@@ -15,7 +15,7 @@ const ConsumerDetailsModal = () => {
 
   const fetchConsumer = async () => {
     const res = await fetch(
-      `http://localhost:4000/api/consumers?page=${page}&limit=${limit}&search=${search}&filter=${filterType}`
+      `https://gas-agency-service.onrender.com/api/consumers?page=${page}&limit=${limit}&search=${search}&filter=${filterType}`
     );
     const data = await res.json();
     setConsumer(data.data);
@@ -28,7 +28,7 @@ const ConsumerDetailsModal = () => {
 
   const deleteConsumer = async (id) => {
     if (!window.confirm("Delete this stock?")) return;
-    await fetch(`http://localhost:4000/api/consumers/${id}`, {
+    await fetch(`https://gas-agency-service.onrender.com/api/consumers/${id}`, {
       method: "DELETE",
     });
     fetchConsumer();

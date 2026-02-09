@@ -1,4 +1,4 @@
-const API = "http://localhost:4000/api/auth";
+const API = "https://gas-agency-service.onrender.com/api/auth";
 
 export const loginUser = (email, password) =>
   fetch(`${API}/login`, {

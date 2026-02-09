@@ -40,7 +40,7 @@ const BookingManagement = () => {
   const fetchConsumers = async () => {
     try {
       const res = await fetch(
-        `http://localhost:4000/api/bookings?page=${page}&limit=${limit}&search=${search}&filter=all`
+        `https://gas-agency-service.onrender.com/api/bookings?page=${page}&limit=${limit}&search=${search}&filter=all`
       );
       const data = await res.json();
 

@@ -30,7 +30,7 @@ const ClientManagement = ({ user, onLogout }) => {
 
   const fetchStats = async () => {
     try {
-      const res = await fetch("http://localhost:4000/api/inventory");
+      const res = await fetch("https://gas-agency-service.onrender.com/api/inventory");
       const data = await res.json();
       setStats(data.data);
     } catch (err) {
@@ -43,7 +43,7 @@ const ClientManagement = ({ user, onLogout }) => {
   }, []);
 
   const logout = async () => {
-  await fetch("http://localhost:4000/api/auth/logout", {
+  await fetch("https://gas-agency-service.onrender.com/api/auth/logout", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,

@@ -28,7 +28,7 @@ const AddStockModal = ({ onClose, onSuccess }) => {
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:4000/api/stocks", {
+      const response = await fetch("https://gas-agency-service.onrender.com/api/stocks", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

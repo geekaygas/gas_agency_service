@@ -60,7 +60,7 @@ const BookingModal = ({ onClose, onUpdated }) => {
 
   const fetchInventoryStock = async (cylinderType) => {
     try {
-      const res = await fetch("http://localhost:4000/api/inventory");
+      const res = await fetch("https://gas-agency-service.onrender.com/api/inventory");
       const result = await res.json();
 
       const data = result.data;
@@ -116,7 +116,7 @@ const BookingModal = ({ onClose, onUpdated }) => {
     try {
       setLoadingSearch(true);
       const res = await fetch(
-        `http://localhost:4000/api/consumers?search=${value}&limit=5&filter=all`
+        `https://gas-agency-service.onrender.com/api/consumers?search=${value}&limit=5&filter=all`
       );
       const data = await res.json();
       setShopResults(data.data || []);
@@ -141,7 +141,7 @@ const BookingModal = ({ onClose, onUpdated }) => {
 
       const payload = buildBookingPayload();
 
-      const res = await fetch("http://localhost:4000/api/bookings", {
+      const res = await fetch("https://gas-agency-service.onrender.com/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

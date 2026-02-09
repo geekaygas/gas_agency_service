@@ -75,7 +75,7 @@ const uploadToCloudinary = async (file, folder) => {
     }
 
     // 2️⃣ Send form data + image URLs to backend
-    await fetch("http://localhost:4000/api/consumers", {
+    await fetch("https://gas-agency-service.onrender.com/api/consumers", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

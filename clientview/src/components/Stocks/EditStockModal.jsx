@@ -10,7 +10,7 @@ const EditStockModal = ({ stock, onClose, onUpdated }) => {
       setLoading(true);
 
       const res = await fetch(
-        `http://localhost:4000/api/stocks/${stock._id}`,
+        `https://gas-agency-service.onrender.com/api/stocks/${stock._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
