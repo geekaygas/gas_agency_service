@@ -9,29 +9,12 @@ const generateOTP = () =>
 
 exports.requestSignupOtp = async (req, res) => {
   try {
+    console.log("STEP 1: Body", req.body);
+
     const { name, email } = req.body;
 
-    if (!name || !email) {
-      return res.status(400).json({ message: "Name and Email required" });
-    }
-
     let user = await User.findOne({ email });
-
-    // If user exists & verified → block
-    if (user && user.isVerified) {
-      return res.status(400).json({ message: "User already exists" });
-    }
-
-    // If OTP expired → clear it automatically
-    if (user && user.otpExpiresAt && user.otpExpiresAt < new Date()) {
-      user.otp = undefined;
-      user.otpExpiresAt = undefined;
-    }
-
-    // If OTP still valid → block resend
-    if (user && user.otpExpiresAt > new Date()) {
-      return res.status(429).json({ message: "OTP already sent. Please wait." });
-    }
+    console.log("STEP 2: User found", user);
 
     const otp = generateOTP();
 
@@ -42,17 +25,68 @@ exports.requestSignupOtp = async (req, res) => {
     user.otp = otp;
     user.otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000);
 
+    console.log("STEP 3: Before save");
     await user.save();
+    console.log("STEP 4: After save");
+
+    console.log("STEP 5: Before sendOTP");
     await sendOTP(email, otp);
+    console.log("STEP 6: After sendOTP");
 
     res.status(200).json({ message: "OTP sent successfully" });
-  } 
-  catch (err) {
-  console.error("REQUEST OTP ERROR:", err);
-  res.status(500).json({ message: err.message });
-}
-
+  } catch (err) {
+    console.error("REQUEST OTP ERROR:", err);
+    res.status(500).json({ message: err.message });
+  }
 };
+
+
+// exports.requestSignupOtp = async (req, res) => {
+//   try {
+//     const { name, email } = req.body;
+
+//     if (!name || !email) {
+//       return res.status(400).json({ message: "Name and Email required" });
+//     }
+
+//     let user = await User.findOne({ email });
+
+//     // If user exists & verified → block
+//     if (user && user.isVerified) {
+//       return res.status(400).json({ message: "User already exists" });
+//     }
+
+//     // If OTP expired → clear it automatically
+//     if (user && user.otpExpiresAt && user.otpExpiresAt < new Date()) {
+//       user.otp = undefined;
+//       user.otpExpiresAt = undefined;
+//     }
+
+//     // If OTP still valid → block resend
+//     if (user && user.otpExpiresAt > new Date()) {
+//       return res.status(429).json({ message: "OTP already sent. Please wait." });
+//     }
+
+//     const otp = generateOTP();
+
+//     if (!user) {
+//       user = new User({ name, email });
+//     }
+
+//     user.otp = otp;
+//     user.otpExpiresAt = new Date(Date.now() + 5 * 60 * 1000);
+
+//     await user.save();
+//     await sendOTP(email, otp);
+
+//     res.status(200).json({ message: "OTP sent successfully" });
+//   } 
+//   catch (err) {
+//   console.error("REQUEST OTP ERROR:", err);
+//   res.status(500).json({ message: err.message });
+// }
+
+// };
 
 /**
  * STEP 2: VERIFY OTP
