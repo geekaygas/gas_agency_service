@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar/Sidebar";
-import Header from "./components/Header/header";
+import Header from "./components/Header/Header.jsx";
 import ClientManagement from "./components/Client/ClientManagement";
 import ConsumerDetails from "./components/Client/ConsumerDetailsModal.jsx";
 import StockManagement from "./components/Stocks/StockManagement.jsx";

@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/authModel");
-const {sendOTP,sendPasswordResetOtp} = require("../Utils/EmailServices");
+const {sendOTP,sendPasswordResetOtp} = require("../utils/EmailServices");
 
 // Generate 4-digit OTP
 const generateOTP = () =>

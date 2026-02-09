@@ -16,8 +16,8 @@ const AddStockModal = ({ onClose, onSuccess }) => {
     cylinder5mt: "",
     nanoCutmt: "",
   });
-  
- const [loading, setLoading] = useState(false);
+
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     if (!formData.Provider || !formData.Drivername || !formData.Staffname) {
@@ -28,11 +28,14 @@ const AddStockModal = ({ onClose, onSuccess }) => {
     try {
       setLoading(true);
 
-      const response = await fetch("https://gas-agency-service.onrender.com/api/stocks", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://gas-agency-service.onrender.com/api/stocks",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        },
+      );
 
       const data = await response.json();
 
@@ -85,12 +88,13 @@ const AddStockModal = ({ onClose, onSuccess }) => {
             <div className="form-group">
               <label className="form-label">Loading Staff Name</label>
               <input
-              className="form-input"
-            placeholder="Staff Name"
-            value={formData.Staffname}
-            onChange={(e) => setFormData({ ...formData, Staffname: e.target.value })}
-          />
-
+                className="form-input"
+                placeholder="Staff Name"
+                value={formData.Staffname}
+                onChange={(e) =>
+                  setFormData({ ...formData, Staffname: e.target.value })
+                }
+              />
             </div>
 
             <div className="form-group">
@@ -98,7 +102,9 @@ const AddStockModal = ({ onClose, onSuccess }) => {
               <input
                 type="date"
                 value={formData.date}
-                onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, date: e.target.value })
+                }
                 className="form-input"
               />
             </div>
@@ -107,7 +113,9 @@ const AddStockModal = ({ onClose, onSuccess }) => {
               <input
                 type="time"
                 value={formData.time}
-                 onChange={(e) => setFormData({ ...formData, time: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, time: e.target.value })
+                }
                 className="form-input"
               />
             </div>
@@ -133,7 +141,12 @@ const AddStockModal = ({ onClose, onSuccess }) => {
                         <input
                           type="number"
                           value={formData.cylinder19}
-                           onChange={(e) => setFormData({ ...formData, cylinder19: e.target.value })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              cylinder19: e.target.value,
+                            })
+                          }
                           className="table-input"
                         />
                       </td>
@@ -142,7 +155,12 @@ const AddStockModal = ({ onClose, onSuccess }) => {
                         <input
                           type="number"
                           value={formData.cylinder5}
-                           onChange={(e) => setFormData({ ...formData, cylinder5: e.target.value })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              cylinder5: e.target.value,
+                            })
+                          }
                           className="table-input"
                         />
                       </td>
@@ -151,7 +169,12 @@ const AddStockModal = ({ onClose, onSuccess }) => {
                         <input
                           type="number"
                           value={formData.nanoCut}
-                          onChange={(e) => setFormData({ ...formData, nanoCut: e.target.value })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              nanoCut: e.target.value,
+                            })
+                          }
                           className="table-input"
                         />
                       </td>
@@ -162,7 +185,12 @@ const AddStockModal = ({ onClose, onSuccess }) => {
                         <input
                           type="number"
                           value={formData.cylinder19mt}
-                           onChange={(e) => setFormData({ ...formData, cylinder19mt: e.target.value })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              cylinder19mt: e.target.value,
+                            })
+                          }
                           className="table-input"
                         />
                       </td>
@@ -171,7 +199,12 @@ const AddStockModal = ({ onClose, onSuccess }) => {
                         <input
                           type="number"
                           value={formData.cylinder5mt}
-                           onChange={(e) => setFormData({ ...formData, cylinder5mt: e.target.value })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              cylinder5mt: e.target.value,
+                            })
+                          }
                           className="table-input"
                         />
                       </td>
@@ -180,7 +213,12 @@ const AddStockModal = ({ onClose, onSuccess }) => {
                         <input
                           type="number"
                           value={formData.nanoCutmt}
-                          onChange={(e) => setFormData({ ...formData, nanoCutmt: e.target.value })}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              nanoCutmt: e.target.value,
+                            })
+                          }
                           className="table-input"
                         />
                       </td>
@@ -196,8 +234,8 @@ const AddStockModal = ({ onClose, onSuccess }) => {
               Cancel
             </button>
             <button onClick={handleSubmit} disabled={loading}>
-            {loading ? "Saving..." : "Add Stock"}
-          </button>
+              {loading ? "Saving..." : "Add Stock"}
+            </button>
           </div>
         </div>
       </div>
