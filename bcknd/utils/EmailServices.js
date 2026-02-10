@@ -1,20 +1,25 @@
 const nodemailer = require("nodemailer");
+const sgMail = require("@sendgrid/mail");
 require("dotenv").config();
 
 const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
+  // service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,          // 👈 IMPORTANT
+  secure: true,       // 👈 MUST be true for 465
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
 });
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendOTP = async (email, otp) => {
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: "Your GeekayGasServices Verification Code",
-        html: `
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Your GeekayGasServices Verification Code",
+    html: `
       <!DOCTYPE html>
       <html>
       <head>
@@ -92,19 +97,19 @@ const sendOTP = async (email, otp) => {
       </body>
       </html>
       `,
-        text: `Welcome to GeekayGasServices\n\nYour verification code is: ${otp}\n\nThis code will expire in 10 minutes.\n\nIf you didn't request this code, please ignore this email or contact our support team immediately.\n\n© ${new Date().getFullYear()} GeekayGasServices Technologies`
-    };
+    text: `Welcome to GeekayGasServices\n\nYour verification code is: ${otp}\n\nThis code will expire in 10 minutes.\n\nIf you didn't request this code, please ignore this email or contact our support team immediately.\n\n© ${new Date().getFullYear()} GeekayGasServices Technologies`
+  };
 
-    await transporter.sendMail(mailOptions);
+  await transporter.sendMail(mailOptions);
 };
 
 
 const sendLoginPIN = async (email, pin) => {
-    const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: "Welcome to GeekayGasServices – Your Login PIN",
-        html: `
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: email,
+    subject: "Welcome to GeekayGasServices – Your Login PIN",
+    html: `
     <!DOCTYPE html>
     <html>
     <head>
@@ -173,10 +178,10 @@ const sendLoginPIN = async (email, pin) => {
     </body>
     </html>
     `,
-        text: `Welcome to GeekayGasServices\n\nYour login PIN is: ${pin}\n\nThis PIN is confidential. Do not share it with anyone.\n\nIf you didn’t request this, please ignore this email or contact support.\n\n© ${new Date().getFullYear()} GeekayGasServices Technologies`
-    };
+    text: `Welcome to GeekayGasServices\n\nYour login PIN is: ${pin}\n\nThis PIN is confidential. Do not share it with anyone.\n\nIf you didn’t request this, please ignore this email or contact support.\n\n© ${new Date().getFullYear()} GeekayGasServices Technologies`
+  };
 
-    await transporter.sendMail(mailOptions);
+  await transporter.sendMail(mailOptions);
 };
 
 const sendPasswordResetOtp = async (email, otp) => {
