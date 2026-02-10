@@ -23,6 +23,25 @@ const sendOTP = async (email, otp) => {
   });
 };
 
+const sendDeleteOtp = async (otp) => {
+  const msg = {
+    to: "sovin1994@gmail.com",
+    from: "geekaygasservices@gmail.com",
+    subject: "OTP for Stock Deletion",
+    html: `
+      <div style="font-family: Arial">
+        <h2>Stock Delete Permission</h2>
+        <p>Your OTP is:</p>
+        <h1>${otp}</h1>
+        <p>This OTP is valid for <b>5 minutes</b>.</p>
+      </div>
+    `,
+  };
+
+  await sgMail.send(msg);
+};
+
+
 // const sendOTP = async (email, otp) => {
 //   const mailOptions = {
 //     from: process.env.EMAIL_USER,
@@ -288,4 +307,4 @@ If you did not request this, please contact support immediately.
 };
 
 
-module.exports = { sendOTP, sendLoginPIN, sendPasswordResetOtp };
+module.exports = { sendOTP, sendLoginPIN, sendPasswordResetOtp,sendDeleteOtp };

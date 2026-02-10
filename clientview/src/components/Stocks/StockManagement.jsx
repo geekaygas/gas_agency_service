@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useRef,useEffect, useState } from "react";
 import { Search, Filter } from "lucide-react";
 import "../Styles/StockManagement.css";
 import EditStockModal from "./EditStockModal";
@@ -12,7 +12,8 @@ const StockManagement = () => {
   const [filterType, setFilterType] = useState("all");
 
   const [showOtpModal, setShowOtpModal] = useState(false);
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const otpRefs = useRef([]);
   const [otpStockId, setOtpStockId] = useState(null);
 
   const [selectedStock, setSelectedStock] = useState(null);
@@ -61,28 +62,38 @@ const StockManagement = () => {
   };
 
   const verifyOtpAndDelete = async () => {
-    const res = await fetch(
-      "https://gas-agency-service.onrender.com/api/stocks/verify-delete-otp",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          stockId: otpStockId,
-          otp,
-        }),
-      },
-    );
+    if (!otp || otp.length !== 6) {
+      alert("Enter a valid 6-digit OTP");
+      return;
+    }
 
-    const data = await res.json();
+    try {
+      const res = await fetch(
+        "https://gas-agency-service.onrender.com/api/stocks/verify-delete-otp",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            stockId: otpStockId,
+            otp,
+          }),
+        },
+      );
 
-    if (data.success) {
-      alert("Stock deleted successfully");
-      fetchStocks();
-      setShowOtpModal(false);
-      setOtp("");
-      setOtpStockId(null);
-    } else {
-      alert(data.message);
+      const data = await res.json();
+
+      if (data.success) {
+        alert("Stock deleted successfully");
+        setShowOtpModal(false);
+        setOtp("");
+        setOtpStockId(null);
+        fetchStocks();
+      } else {
+        alert(data.message || "Invalid OTP");
+      }
+    } catch (err) {
+      console.error("OTP verify failed", err);
+      alert("Server error while verifying OTP");
     }
   };
 
@@ -214,19 +225,66 @@ const StockManagement = () => {
       )}
 
       {showOtpModal && (
-        <div className="otp-modal">
-          <h3>Enter OTP</h3>
+        <div className="modal-overlay">
+          <div className="modal-card">
+            <h3>Confirm Stock Deletion</h3>
 
-          <input
-            type="text"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            placeholder="6-digit OTP"
-          />
+            <p className="modal-subtext">
+              Enter the 6-digit OTP sent to your email to continue.
+            </p>
 
-          <button onClick={confirmDeleteWithOtp}>Verify & Delete</button>
+            <div className="otp-inputs">
+              {otp.map((digit, i) => (
+                <input
+                  key={i}
+                  ref={(el) => (otpRefs.current[i] = el)}
+                  className="otp-input"
+                  type="text"
+                  maxLength={1}
+                  value={digit}
+                  onChange={(e) => {
+                    const val = e.target.value.replace(/\D/g, "");
+                    if (!val) return;
 
-          <button onClick={() => setShowOtpModal(false)}>Cancel</button>
+                    const next = [...otp];
+                    next[i] = val;
+                    setOtp(next);
+                    otpRefs.current[i + 1]?.focus();
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Backspace") {
+                      e.preventDefault();
+                      const next = [...otp];
+                      if (next[i]) {
+                        next[i] = "";
+                      } else {
+                        otpRefs.current[i - 1]?.focus();
+                        next[i - 1] = "";
+                      }
+                      setOtp(next);
+                    }
+                  }}
+                />
+              ))}
+            </div>
+
+            <div className="modal-actions">
+              <button
+                className="btn-secondary"
+                onClick={() => setShowOtpModal(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="btn-danger"
+                onClick={verifyOtpAndDelete}
+                disabled={otp.length !== 6}
+              >
+                Verify & Delete
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
