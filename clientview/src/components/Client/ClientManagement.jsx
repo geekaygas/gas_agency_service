@@ -178,7 +178,7 @@ const ClientManagement = ({ user, onLogout }) => {
       )}
       {/* Add Client Modal */}
       {showAddStockModal && (
-        <AddStockModal onClose={() => setShowAddStockModal(false)} />
+        <AddStockModal onClose={() => setShowAddStockModal(false)} onSuccess={fetchStats} />
       )}
     </div>
   );

@@ -26,7 +26,7 @@ const Login = ({ onLoginSuccess }) => {
           </div>
         </div>
 
-        <SignupForm />
+        <SignupForm onGoToLogin={() => setIsSignup(false)} />
       </div>
     </div>
   );

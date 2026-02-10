@@ -11,11 +11,15 @@ const StockManagement = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [filterType, setFilterType] = useState("all");
 
+  const [showOtpModal, setShowOtpModal] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [otpStockId, setOtpStockId] = useState(null);
+
   const [selectedStock, setSelectedStock] = useState(null);
 
   const fetchStocks = async () => {
     const res = await fetch(
-      `https://gas-agency-service.onrender.com/api/stocks?page=${page}&limit=${limit}&search=${search}&filter=${filterType}`
+      `https://gas-agency-service.onrender.com/api/stocks?page=${page}&limit=${limit}&search=${search}&filter=${filterType}`,
     );
     const data = await res.json();
     setStocks(data.data);
@@ -26,12 +30,60 @@ const StockManagement = () => {
     fetchStocks();
   }, [page, limit, search]);
 
+  // const deleteStock = async (id) => {
+  //   if (!window.confirm("Delete this stock?")) return;
+  //   await fetch(`https://gas-agency-service.onrender.com/api/stocks/${id}`, {
+  //     method: "DELETE",
+  //   });
+  //   fetchStocks();
+  // };
+
   const deleteStock = async (id) => {
-    if (!window.confirm("Delete this stock?")) return;
-    await fetch(`https://gas-agency-service.onrender.com/api/stocks/${id}`, {
-      method: "DELETE",
-    });
-    fetchStocks();
+    if (!window.confirm("Send OTP to delete this stock?")) return;
+
+    const res = await fetch(
+      "https://gas-agency-service.onrender.com/api/stocks/request-delete-otp",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ stockId: id }),
+      },
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+      setOtpStockId(id);
+      setShowOtpModal(true);
+    } else {
+      alert("Failed to send OTP");
+    }
+  };
+
+  const verifyOtpAndDelete = async () => {
+    const res = await fetch(
+      "https://gas-agency-service.onrender.com/api/stocks/verify-delete-otp",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          stockId: otpStockId,
+          otp,
+        }),
+      },
+    );
+
+    const data = await res.json();
+
+    if (data.success) {
+      alert("Stock deleted successfully");
+      fetchStocks();
+      setShowOtpModal(false);
+      setOtp("");
+      setOtpStockId(null);
+    } else {
+      alert(data.message);
+    }
   };
 
   return (
@@ -159,6 +211,23 @@ const StockManagement = () => {
           onClose={() => setSelectedStock(null)}
           onUpdated={fetchStocks}
         />
+      )}
+
+      {showOtpModal && (
+        <div className="otp-modal">
+          <h3>Enter OTP</h3>
+
+          <input
+            type="text"
+            value={otp}
+            onChange={(e) => setOtp(e.target.value)}
+            placeholder="6-digit OTP"
+          />
+
+          <button onClick={confirmDeleteWithOtp}>Verify & Delete</button>
+
+          <button onClick={() => setShowOtpModal(false)}>Cancel</button>
+        </div>
       )}
     </div>
   );

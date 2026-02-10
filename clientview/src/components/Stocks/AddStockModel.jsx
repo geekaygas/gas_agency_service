@@ -42,7 +42,7 @@ const AddStockModal = ({ onClose, onSuccess }) => {
       if (!response.ok) throw new Error(data.message);
 
       alert("Stock added successfully ✅");
-      // onSuccess();
+      onSuccess();
       onClose();
     } catch (error) {
       alert(error.message || "Something went wrong");
