@@ -17,7 +17,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const sendOTP = async (email, otp) => {
   await sgMail.send({
     to: email,
-    from: "your_verified_email@gmail.com", // SAME as verified sender
+    from: "geekaygasservices@gmail.com", // SAME as verified sender
     subject: "Your OTP Code",
     text: `Your OTP is ${otp}`,
   });
