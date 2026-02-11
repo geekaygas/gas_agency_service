@@ -307,4 +307,4 @@ If you did not request this, please contact support immediately.
 };
 
 
-module.exports = { sendOTP, sendLoginPIN, sendPasswordResetOtp,sendDeleteOtp };
+module.exports = { sendOTP, sendLoginPIN, sendPasswordResetOtp,sendDeleteOtp};

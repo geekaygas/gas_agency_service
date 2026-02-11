@@ -19,12 +19,14 @@ const consumerRoutes = require("./routes/consumerRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
 const authRoutes = require("./routes/authRoutes");
 const User = require("./models/authModel");
+const driverRoutes = require("./routes/driverRoutes");
 
 app.use("/api", consumerRoutes);
 app.use("/api", clientRoutes);
 app.use("/api", stockRoutes);
 app.use("/api", bookingRoutes);
 app.use("/api/auth", authRoutes)
+app.use("/api", driverRoutes)
 
 
 // Connect to MongoDB  
