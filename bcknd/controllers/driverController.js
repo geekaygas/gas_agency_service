@@ -46,6 +46,7 @@ exports.signIn = async (req, res) => {
         id: user._id,
         name: user.name,
         email: user.email,
+        phone: user.phone,
       },
     });
   } catch (err) {
@@ -117,7 +118,7 @@ exports.resetPassword = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(400).json({ message: "Unauthorized" });
+      return res.status(400).json({ message: "Unauthorized" }); 
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

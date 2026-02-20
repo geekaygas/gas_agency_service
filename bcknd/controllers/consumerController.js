@@ -1,4 +1,5 @@
 const Consumer = require("../models/consumerModel");
+const Booking = require("../models/bookingModel")
 const cloudinary = require("../utils/cloudinary");
 
 // 🔹 CREATE CONSUMER
@@ -9,7 +10,9 @@ exports.createConsumer = async (req, res) => {
       contactName,
       mobileNumber1,
       mobileNumber2,
-      cylinderType,
+      // cylinderType,
+      aadhaarNumber,
+      gstNumber,
       address,
       ownerImage,
       shopImage,
@@ -20,7 +23,9 @@ exports.createConsumer = async (req, res) => {
       contactName,
       mobileNumber1,
       mobileNumber2,
-      cylinderType,
+      // cylinderType,
+      aadhaarNumber,
+      gstNumber, 
       address,
       ownerImage,
       shopImage,
@@ -37,6 +42,7 @@ exports.createConsumer = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
 
 // 🔹 GET CONSUMERS (Pagination)
 exports.getConsumers = async (req, res) => {
@@ -95,7 +101,7 @@ exports.updateConsumer = async (req, res) => {
     data: updated,
   });
 };
-
+ 
 // 🔹 DELETE CONSUMER
 exports.deleteConsumer = async (req, res) => {
   await Consumer.findByIdAndDelete(req.params.id);

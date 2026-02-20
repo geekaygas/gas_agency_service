@@ -12,4 +12,4 @@ router.get("/consumers", getConsumers);
 router.put("/consumers/:id", updateConsumer);
 router.delete("/consumers/:id", deleteConsumer);
 
-module.exports = router;
+module.exports = router; 

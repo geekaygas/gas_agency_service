@@ -15,12 +15,6 @@ const bookingSchema = new mongoose.Schema(
     contactName: { type: String, required: true },
     mobileNumber1: { type: String, required: true },
 
-    cylinderType: {
-      type: String,
-      enum: ["19 Kg", "5 kg", "Nano Cut"],
-      required: true,
-    },
-
     // 🔹 19 Kg
     kg19FullQty: { type: Number, default: 0, min: 0 },
     kg19EmptyQty: { type: Number, default: 0, min: 0 },
@@ -36,4 +30,4 @@ const bookingSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Booking", bookingSchema);
+module.exports = mongoose.model("Booking", bookingSchema); 

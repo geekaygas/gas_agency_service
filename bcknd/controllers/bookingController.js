@@ -6,12 +6,9 @@ exports.createBooking = async (req, res) => {
     const {
       consumerId,
       Shopname,
-      contactName,
-      mobileNumber1,
-      cylinderType,
     } = req.body;
 
-    if (!consumerId || !Shopname || !cylinderType) {
+    if (!consumerId || !Shopname ) {
       return res.status(400).json({
         success: false,
         message: "Required fields missing",
@@ -34,18 +31,35 @@ exports.createBooking = async (req, res) => {
   }
 };
 
-// 🔹 GET BOOKINGS (optional, for history page)
 exports.getBookings = async (req, res) => {
   try {
     const page = Number(req.query.page) || 1;
     const limit = Number(req.query.limit) || 10;
 
+    const { date } = req.query; // 👈 NEW
+
     const skip = (page - 1) * limit;
 
-    const total = await Booking.countDocuments();
+    let query = {};
 
-    const data = await Booking.find()
-      .sort({ createdAt: -1 })   // ✅ latest first
+    // 🔹 FILTER BY DATE
+    if (date) {
+      const start = new Date(date);
+      start.setHours(0, 0, 0, 0);
+
+      const end = new Date(date);
+      end.setHours(23, 59, 59, 999);
+
+      query.createdAt = {
+        $gte: start,
+        $lte: end,
+      };
+    }
+
+    const total = await Booking.countDocuments(query);
+
+    const data = await Booking.find(query)
+      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
       .lean();
@@ -64,6 +78,49 @@ exports.getBookings = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Failed to fetch bookings",
+      error: error.message,
+    });
+  }
+};
+
+exports.getShopTransactions = async (req, res) => {
+  try {
+    const { consumerId } = req.params;
+
+    const page = Number(req.query.page) || 1;
+    const limit = Number(req.query.limit) || 20;
+
+    const skip = (page - 1) * limit;
+
+    if (!consumerId) {
+      return res.status(400).json({
+        success: false,
+        message: "Consumer ID is required",
+      });
+    }
+
+    const total = await Booking.countDocuments({ consumerId });
+
+    const data = await Booking.find({ consumerId })
+      .sort({ createdAt: -1 }) // latest first
+      .skip(skip)
+      .limit(limit)
+      .lean();
+
+    res.status(200).json({
+      success: true,
+      data,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to fetch shop transactions",
       error: error.message,
     });
   }
@@ -109,7 +166,7 @@ exports.getInventoryStats = async (req, res) => {
           booked5Empty: { $sum: "$kg5EmptyQty" },
 
           bookedNanoFull: { $sum: "$nanoFullQty" },
-          bookedNanoEmpty: { $sum: "$nanoEmptyQty" },
+          bookedNanoEmpty: { $sum: "$nanoEmptyQty" }, 
         },
       },
     ]);
